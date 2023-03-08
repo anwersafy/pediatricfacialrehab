@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
+import '../../domain/repositories/cach_helper.dart';
 import '../../domain/repositories/constant.dart';
 import '../../domain/usecases/app_cubit/login_ cubit.dart';
 import '../../domain/usecases/app_cubit/login_state.dart';
@@ -153,7 +154,7 @@ class secondScreen extends StatelessWidget {
                                                           validator: (value) {
                                                             if (value!
                                                                 .isEmpty) {
-                                                              return 'Please enter your email';
+                                                              return 'Please enter your username';
                                                             }
                                                             return null;
                                                           },
@@ -166,7 +167,7 @@ class secondScreen extends StatelessWidget {
                                                           decoration:
                                                               InputDecoration(
                                                                   hintText:
-                                                                      '  Email Address'),
+                                                                      ' Username'),
                                                           style: TextStyle(
                                                               fontSize: 18,
                                                               fontFamily:
@@ -229,8 +230,17 @@ class secondScreen extends StatelessWidget {
                                                               .validate()) {
                                                             AppCubit.get(context).login(
                                                                 username: AppCubit.get(context).usernameController.text,
-                                                                password: AppCubit.get(context).passwordController.text);
+                                                                password: AppCubit.get(context).passwordController.text,
+
+                                                            );
+
                                                             if (AppCubit.get(context).playerName != null) {
+                                                              CacheHelper.saveData(
+                                                                  key: 'username',
+                                                                  value: AppCubit.get(context).usernameController.text);
+                                                              CacheHelper.saveData(
+                                                                  key: 'password',
+                                                                  value: AppCubit.get(context).passwordController.text);
                                                               Navigator.push(
                                                                   context,
                                                                   MaterialPageRoute(

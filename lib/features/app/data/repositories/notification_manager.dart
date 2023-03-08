@@ -62,7 +62,7 @@ class NotificationHelper {
           //'your channel id $sound',
           'your channel id',
           'your channel name',
-          channelDescription: 'your channel description',
+           channelDescription: 'your channel description',
           importance: Importance.max,
           priority: Priority.high,
           //sound: RawResourceAndroidNotificationSound(sound),

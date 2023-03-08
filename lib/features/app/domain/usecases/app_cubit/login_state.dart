@@ -41,3 +41,15 @@ class CancelAllNotificationState extends AppState{}
 class ShowNotificationState extends AppState{}
 class RequestIOSPermissionState extends AppState{}
 class OnSelectNotificationState extends AppState{}
+class UserLoginLoadingState extends AppState{}
+class UserLoginSuccessState extends AppState{}
+class UserLoginFailureState extends AppState{
+  final String error;
+  UserLoginFailureState({required this.error});
+}
+class DetectEmotionSmileState extends AppState{}
+class DetectEmotionSmileSuccessState extends AppState{}
+class DetectEmotionSmileFailureState extends AppState{
+  final String error;
+  DetectEmotionSmileFailureState({required this.error});
+}

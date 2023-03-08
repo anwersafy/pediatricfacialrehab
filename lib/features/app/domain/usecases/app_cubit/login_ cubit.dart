@@ -1,12 +1,18 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:hive/hive.dart';
+import 'package:learning_face_detection/learning_face_detection.dart';
 import 'package:path/path.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../data/models/user.dart';
+import '../../../data/models/user_model.dart';
 import '../../../data/repositories/database_helper.dart';
 import '../../../data/repositories/notification_manager.dart';
 import '../../../presentation/screens/levels.dart';
@@ -21,68 +27,8 @@ class AppCubit extends Cubit<AppState> {
   AppCubit() : super(LoginInitial());
 
   static AppCubit get(context) => BlocProvider.of(context);
-  var databaseHelper = DatabaseHelper;
-
-  User? user;
-  // void singeUp({
-  //   required String email,
-  //   required String password,
-  // }) {
-  //   user?.email = email;
-  //   user?.password = password;
-  //
-  //   emit(LoginSingeUpState());
-  // }
-
   var usernameController = TextEditingController();
   var passwordController = TextEditingController();
-  Database? database;
-
-  void createDatabase() {
-    openDatabase(
-      'todo.db',
-      version: 1,
-      onCreate: (database, version) {
-        print("database created");
-        database
-            .execute(
-                'CREATE TABLE users(id INTEGER PRIMARY KEY , username text , password text )')
-            .then((value) {
-          print('table created');
-        }).catchError((error) {
-          print('error when creating DB ${error.toString()}');
-        });
-      },
-      onOpen: (database) {
-        // getDataFromDatabase(database);
-        print('database open');
-      },
-    ).then((value) {
-      database = value;
-      emit(AppCreateDatabaseState());
-    });
-  }
-
-  insertDatabase({
-    required String username,
-    required String password,
-  }) async {
-    await database?.transaction((txn) {
-      return txn
-          .rawInsert(
-        'INSERT INTO users (username, password) VALUES ("$username","$password")',
-      )
-          .then((value) {
-        print('$value inserted Successfully');
-        emit(AppInsertDatabaseState());
-
-        // getDataFromDatabase(database);
-      }).catchError((error) {
-        print('Error when Inserting New record ${error.toString()}');
-      });
-    });
-  }
-
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -295,7 +241,7 @@ class AppCubit extends Cubit<AppState> {
           //'your channel id $sound',
           'your channel id',
           'your channel name',
-          channelDescription: 'your channel description',
+           channelDescription: 'your channel description',
           importance: Importance.max,
           priority: Priority.high,
         ),
@@ -330,6 +276,25 @@ class AppCubit extends Cubit<AppState> {
     emit(CancelNotificationState());
   }
 
+  List? images = [];
+
+  List? pickedImages;
+  List imagesAsBytes = [];//List of images converted to bytes
+  var imageObj = UserModel();
+  List<UserModel> useModelList=[];
+  //var userBox = Hive.box('users');
+  userLogin(
+      UserModel  model
+
+      ){
+    emit(UserLoginLoadingState());
+    {
+     // var users = Hive.box('users');
+      //users.put('user', model);
+      useModelList.add(model);
+      emit(UserLoginSuccessState());
+    }
+  }
 
 
 var timeController;
@@ -338,26 +303,93 @@ var minuteController ;
 var hour_reminder;
 var minute_reminder;
 
+  var timeController1;
+  var hourController1;
+  var minuteController1 ;
+  var hour_reminder1;
+  var minute_reminder1;
+
+  var timeController2;
+  var hourController2;
+  var minuteController2 ;
+  var hour_reminder2;
+  var minute_reminder2;
+
+  var timeController3;
+  var hourController3;
+  var minuteController3 ;
+  var hour_reminder3;
+  var minute_reminder3;
+
   Future onSelectNotification(String payload) async {
     print('Notification clicked');
     emit(OnSelectNotificationState());
     return Future.value(0);
   }
 
-  void onDidReceiveNotificationResponse(NotificationResponse notificationResponse,BuildContext context) async {
+  void onDidReceiveNotificationResponse( notificationResponse,BuildContext context) async {
     final String? payload = notificationResponse.payload;
     if (notificationResponse.payload != null) {
       debugPrint('notification payload: $payload');
     }
     await Navigator.push(
       context,
-      MaterialPageRoute<void>(builder: (context) => levelsScreen(username: playerName,)),
+      MaterialPageRoute<void>(builder: (context) => levelsScreen()),
     );
   }
 
   void removeReminder(int notificationId) {
     flutterLocalNotificationsPlugin.cancel(notificationId);
   }
+var faceDetector =FaceDetector();
+  // var image;
+  // var smileCounter = 0;
+  // var smileThreshold = 0.5;
+  // var intervalTimer;
+  // var _smileCounter = 0;
+  int progress = 0;
+  Future detectEmotion(
+  {
+    required File imageFile,
+    required int smileCounter,
+    required double smileThreshold,
+    required Timer intervalTimer,
+    required dynamic face,
+    //required int smileCounter,
 
 
 }
+      )async{
+
+
+      final smileProb = face.smilingProbability ?? 0.0;
+      if (smileProb > smileThreshold) {
+        // Increment the smile counter
+        smileCounter++;
+        emit(DetectEmotionSmileState());
+
+        if (smileCounter == 1) {
+          // Start the 10-second interval
+          intervalTimer = Timer(Duration(seconds: 10), () {
+            // Output the number of times the user smiled
+            progress=smileCounter;
+            print('Number of smiles: $smileCounter');
+            // Reset the smile counter
+            smileCounter = 0;
+            if(smileCounter==10){
+              progress=smileCounter;
+
+              emit(DetectEmotionSmileSuccessState());
+            }
+          });
+        }
+      }
+    }
+
+    var videoPlayerController;
+  //var videoPlayerController=videoPlayerController.asset('assets/videos/1.mp4');
+
+  }
+
+
+

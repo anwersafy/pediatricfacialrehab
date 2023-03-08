@@ -5,8 +5,11 @@ import 'package:job/utils/colors.dart';
 import '../../data/repositories/notification_manager.dart';
 import '../../domain/usecases/app_cubit/login_ cubit.dart';
 import '../../domain/usecases/app_cubit/login_state.dart';
+import '../cameraCubit/cubitTest/cubit.dart';
 import '../widgets/component.dart';
+import 'camera1.dart';
 import 'levels.dart';
+import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
   final Widget? startwidget;
@@ -17,25 +20,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AppCubit()..createDatabase()..initializeNotification(),
-      // providers: [
-      //   BlocProvider(
-      //     create: (context) => AppCubit()..createDatabase()..initializeNotification(),
-      //   ),],
-      child: BlocConsumer<AppCubit, AppState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          var cubit = AppCubit.get(context);
-          return MaterialApp(
-            theme: ThemeData(
-              primarySwatch: Colors.deepOrange,
-            ),
-            debugShowCheckedModeBanner: false,
-            home: startwidget,
+          return MultiBlocProvider(providers: [
+
+        BlocProvider<AppCubit>(create: (_) => AppCubit(),),
+        BlocProvider<FaceDetectionCubit>(create: (_) => FaceDetectionCubit(),),
+
+    ],
+            child:MaterialApp(
+          theme: ThemeData(
+            primarySwatch: Colors.deepOrange,
+          ),
+          debugShowCheckedModeBanner: false,
+          home: startwidget,
+          )
           );
-        },
-      ),
-    );
+
+
   }
 }

@@ -4,208 +4,236 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:job/features/app/presentation/screens/levels.dart';
 
 import '../../../../utils/colors.dart';
+import '../camerScreens/CamerL1.dart';
+import '../camerScreens/CamerL2.dart';
+import '../camerScreens/CameraL3.dart';
+import '../camerScreens/CameraL4.dart';
+import '../camerScreens/CameraL5.dart';
+import '../cameraCubit/cubitTest/mainLayout.dart';
 import '../screens/camera1.dart';
 
-Widget levelsContent (BuildContext context, Color color){
-  return ListView(
-    children: [
-
-      Row(
-        children: [
-
-          Column(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.push (context, MaterialPageRoute(builder: (context)=>cameraOne()));
-                  },
-                  icon: CircleAvatar(
-                    backgroundColor: color,
-                    radius: 65,
-                    child: CircleAvatar(
-
-                      radius: 60,
-                      backgroundImage: AssetImage('images/asset-1.png'),
-                    ),
-                  ),
-                  iconSize: 150,
-                ),
-                SizedBox(
-                  height:MediaQuery.of(context).size.height *0.01,
-                ),
-                RatingBar.builder(
-                    minRating: 1,
-                    itemBuilder: (context, _)=>Icon(Icons.star,color: Colors.amber,),
-                    updateOnDrag: true,
-                    itemSize: 24,
-                    onRatingUpdate: (rating)=> rating)
-              ]),
-          SizedBox(width: MediaQuery.of(context).size.width *0.05,),
-          Column(
-            children: [
-              IconButton(onPressed: () {
-                Navigator.push (context, MaterialPageRoute(builder: (context)=>cameraOne()));
-
-
-              },
-                icon: CircleAvatar(
-                  backgroundColor: color,
-                  radius: 65,
-                  child: CircleAvatar(
-                    radius: 60,
-                    backgroundImage: AssetImage('images/asset-2.png'),
-                  ),
-                ),
-                iconSize: 150,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height *0.01,
-              ),
-              RatingBar.builder(
-                  minRating: 1,
-                  itemBuilder: (context, _)=>Icon(Icons.star,color: Colors.amber,),
-                  updateOnDrag: true,
-                  itemSize: 24,
-                  onRatingUpdate: (rating)=> rating )
-            ],
-          ),
-
-        ],
-      ),
-      SizedBox(height: MediaQuery.of(context).size.height *0.01,),
-      Row(
-        children: [
-          SizedBox(width: MediaQuery.of(context).size.width *0.05,),
-
-          Column(
-            children: [
-              IconButton(onPressed: () {
-
-                Navigator.push (context, MaterialPageRoute(builder: (context)=>cameraOne()));
-
-
-              },
-                icon:
-                CircleAvatar(
-                  backgroundColor: color,
-                  radius: 65,
-                  child: CircleAvatar(
-                    radius: 60,
-                    backgroundImage: AssetImage('images/asset-3.png'),
-                  ),
-                ),
-                iconSize: 140,
-
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height *0.001,
-              ),
-              RatingBar.builder(
-                  minRating: 1,
-                  itemBuilder: (context, _)=>Icon(Icons.star,color: Colors.amber,),
-                  updateOnDrag: true,
-                  itemSize: 24,
-                  onRatingUpdate: (rating)=> rating )
-            ],
-          ),
-          SizedBox(width: MediaQuery.of(context).size.width *0.05,),
-          Column(
-            children: [
-              IconButton(onPressed: (){
-                Navigator.push (context, MaterialPageRoute(builder: (context)=>cameraOne()));
-
-
-              }, icon:  CircleAvatar(
-                backgroundColor: color,
-                radius: 65,
-                child: CircleAvatar(
-
-                  radius: 60,
-                  backgroundImage: AssetImage('images/asset-4.png'),
-                ),
-              ),iconSize: 140,),
-              SizedBox(
-                height: MediaQuery.of(context).size.height *0.001,
-              ),
-              RatingBar.builder(
-                  minRating: 1,
-                  itemBuilder: (context, _)=>Icon(Icons.star,color: Colors.amber,),
-                  updateOnDrag: true,
-                  itemSize: 24,
-                  onRatingUpdate: (rating)=> rating )
-            ],
-          ),
-
-        ],
-      ),
-      SizedBox(height: MediaQuery.of(context).size.height *0.01,),
-      Row(
-        children: [
-          Column(
-            children: [
-              IconButton(onPressed: (){
-
-                Navigator.push (context, MaterialPageRoute(builder: (context)=>cameraOne()));
-
-
-              }, icon: CircleAvatar(
-                backgroundColor: color,
-                radius: 65,
-                child: CircleAvatar(
-                  radius: 60,
-                  backgroundImage: AssetImage('images/asset-4.png'),
-                ),
-              ),
-                iconSize: 140,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height *0.001,
-              ),
-              RatingBar.builder(
-                  minRating: 1,
-                  itemBuilder: (context, _)=>Icon(Icons.star,color: Colors.amber,),
-                  updateOnDrag: true,
-                  itemSize: 24,
-                  onRatingUpdate: (rating)=> rating )
-            ],
-          ),
-          SizedBox(width: MediaQuery.of(context).size.width *0.1),
-          Column(
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push (context, MaterialPageRoute(builder: (context)=>cameraOne()));
-
-                }, icon:   CircleAvatar(
-                radius: 65,
-                  backgroundColor: color,
-                  child: CircleAvatar(
-                  radius: 60,
-                  backgroundImage: AssetImage('images/asset-5.png'),
-              ),
-                ),
-                iconSize: 140,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height *0.001,
-              ),
-              RatingBar.builder(
-                  minRating: 1,
-                  itemBuilder: (context, _)=>Icon(Icons.star,color: Colors.amber,),
-                  updateOnDrag: true,
-                  itemSize: 24,
-                  onRatingUpdate: (rating)=>rating),
-            ],
-          ),
-
-        ],
-      ),
-      SizedBox(height: MediaQuery.of(context).size.height *0.01,),
-
-
-    ],
-  );
-}
+// Widget levelsContent (BuildContext context, Color color,
+//     String? assetVide , Function? detect,dynamic stream ,int score ,
+//
+//     ){
+//   return ListView(
+//     children: [
+//
+//       Row(
+//         children: [
+//
+//           Column(
+//               children: [
+//                 IconButton(
+//                   onPressed: () {
+//                     Navigator.push (context, MaterialPageRoute(builder: (context)=>CameraScreen(
+//
+//                     )));
+//                   },
+//                   icon: CircleAvatar(
+//                     backgroundColor: color,
+//                     radius: 65,
+//                     child: CircleAvatar(
+//
+//                       radius: 60,
+//                       backgroundImage: AssetImage('images/asset-1.png'),
+//                     ),
+//                   ),
+//                   iconSize: 150,
+//                 ),
+//                 SizedBox(
+//                   height:MediaQuery.of(context).size.height *0.01,
+//                 ),
+//                 RatingBar.builder(
+//                     minRating: 1,
+//                     itemBuilder: (context, _)=>Icon(Icons.star,color: Colors.amber,),
+//                     updateOnDrag: true,
+//                     itemSize: 24,
+//                     onRatingUpdate: (rating)=> rating
+//
+//                 )
+//               ]),
+//           SizedBox(width: MediaQuery.of(context).size.width *0.05,),
+//           Column(
+//             children: [
+//               IconButton(onPressed: () {
+//                 Navigator.push (context, MaterialPageRoute(builder: (context)=>CameraScreenL1(
+//                   AssetVide: assetVide!,
+//
+//                 )));
+//
+//
+//               },
+//                 icon: CircleAvatar(
+//                   backgroundColor: color,
+//                   radius: 65,
+//                   child: CircleAvatar(
+//                     radius: 60,
+//                     backgroundImage: AssetImage('images/asset-2.png'),
+//                   ),
+//                 ),
+//                 iconSize: 150,
+//               ),
+//               SizedBox(
+//                 height: MediaQuery.of(context).size.height *0.01,
+//               ),
+//               RatingBar.builder(
+//                   minRating: 1,
+//                   itemBuilder: (context, _)=>Icon(Icons.star,color: Colors.amber,),
+//                   updateOnDrag: true,
+//                   itemSize: 24,
+//                   onRatingUpdate: (rating)=> rating )
+//             ],
+//           ),
+//
+//         ],
+//       ),
+//       SizedBox(height: MediaQuery.of(context).size.height *0.01,),
+//       Row(
+//         children: [
+//           SizedBox(width: MediaQuery.of(context).size.width *0.05,),
+//
+//           Column(
+//             children: [
+//               IconButton(onPressed: () {
+//
+//                 Navigator.push (context, MaterialPageRoute(builder: (context)=>CameraScreenL2(
+//                   AssetVide: assetVide!,
+//
+//                 )));
+//
+//               },
+//                 icon:
+//                 CircleAvatar(
+//                   backgroundColor: color,
+//                   radius: 65,
+//                   child: CircleAvatar(
+//                     radius: 60,
+//                     backgroundImage: AssetImage('images/asset-3.png'),
+//                   ),
+//                 ),
+//                 iconSize: 140,
+//
+//               ),
+//               SizedBox(
+//                 height: MediaQuery.of(context).size.height *0.001,
+//               ),
+//               RatingBar.builder(
+//                   minRating: 1,
+//                   itemBuilder: (context, _)=>Icon(Icons.star,color: Colors.amber,),
+//                   updateOnDrag: true,
+//                   itemSize: 24,
+//                   onRatingUpdate: (rating)=> rating )
+//             ],
+//           ),
+//           SizedBox(width: MediaQuery.of(context).size.width *0.05,),
+//           Column(
+//             children: [
+//               IconButton(onPressed: (){
+//                 Navigator.push (context, MaterialPageRoute(builder: (context)=>CameraScreenL3(
+//                   AssetVide: assetVide!,
+//
+//                 ))
+//                 );
+//
+//
+//               }, icon:  CircleAvatar(
+//                 backgroundColor: color,
+//                 radius: 65,
+//                 child: CircleAvatar(
+//
+//                   radius: 60,
+//                   backgroundImage: AssetImage('images/asset-4.png'),
+//                 ),
+//               ),iconSize: 140,),
+//               SizedBox(
+//                 height: MediaQuery.of(context).size.height *0.001,
+//               ),
+//               RatingBar.builder(
+//                   minRating: 1,
+//                   itemBuilder: (context, _)=>Icon(Icons.star,color: Colors.amber,),
+//                   updateOnDrag: true,
+//                   itemSize: 24,
+//                   onRatingUpdate: (rating)=> rating )
+//             ],
+//           ),
+//
+//         ],
+//       ),
+//       SizedBox(height: MediaQuery.of(context).size.height *0.01,),
+//       Row(
+//         children: [
+//           Column(
+//             children: [
+//               IconButton(onPressed: (){
+//
+//                 Navigator.push (context, MaterialPageRoute(builder: (context)=>CameraScreenL4(
+//                   AssetVide: assetVide!,
+//
+//                 )));
+//
+//
+//               }, icon: CircleAvatar(
+//                 backgroundColor: color,
+//                 radius: 65,
+//                 child: CircleAvatar(
+//                   radius: 60,
+//                   backgroundImage: AssetImage('images/angry_.jpg'),
+//                 ),
+//               ),
+//                 iconSize: 140,
+//               ),
+//               SizedBox(
+//                 height: MediaQuery.of(context).size.height *0.001,
+//               ),
+//               RatingBar.builder(
+//                   minRating: 1,
+//                   itemBuilder: (context, _)=>Icon(Icons.star,color: Colors.amber,),
+//                   updateOnDrag: true,
+//                   itemSize: 24,
+//                   onRatingUpdate: (rating)=> rating )
+//             ],
+//           ),
+//           SizedBox(width: MediaQuery.of(context).size.width *0.1),
+//           Column(
+//             children: [
+//               IconButton(
+//                 onPressed: () {
+//                   Navigator.push (context, MaterialPageRoute(builder: (context)=>CameraScreenL5(
+//                     AssetVide: assetVide!,
+//
+//                   )));
+//
+//                 }, icon:   CircleAvatar(
+//                 radius: 65,
+//                   backgroundColor: color,
+//                   child: CircleAvatar(
+//                   radius: 60,
+//                   backgroundImage: AssetImage('images/asset-5.png'),
+//               ),
+//                 ),
+//                 iconSize: 140,
+//               ),
+//               SizedBox(
+//                 height: MediaQuery.of(context).size.height *0.001,
+//               ),
+//               RatingBar.builder(
+//                   minRating: 1,
+//                   itemBuilder: (context, _)=>Icon(Icons.star,color: Colors.amber,),
+//                   updateOnDrag: true,
+//                   itemSize: 24,
+//                   onRatingUpdate: (rating)=>rating),
+//             ],
+//           ),
+//
+//         ],
+//       ),
+//       SizedBox(height: MediaQuery.of(context).size.height *0.01,),
+//
+//
+//     ],
+//   );
+// }
 
 AppBar defaultAppBar(Color color, String label,BuildContext context) {
   return AppBar(
@@ -485,6 +513,20 @@ AppBar buildAppBarDemo() {
     ),
   );
 }
+
+
+var colors=[
+  CLevel1,
+  CLevel2,
+  CLevel3,
+  CLevel4,
+  CLevel5,
+  CLevel6,
+];
+
+
+
+
 // AppBar(
 // toolbarHeight: 130,
 // backgroundColor: Colors.transparent,

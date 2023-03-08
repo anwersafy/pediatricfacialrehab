@@ -3,6 +3,11 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:job/features/app/presentation/widgets/component.dart';
 import 'package:job/utils/colors.dart';
 import '../../../../utils/colors.dart';
+import '../camerScreens/CamerL2.dart';
+import '../camerScreens/CameraL3.dart';
+import '../camerScreens/CameraL5.dart';
+import '../cameraCubit/cubitTest/cubit.dart';
+import '../cameraCubit/cubitTest/mainLayout.dart';
 import 'camera1.dart';
 
 class levelSix extends StatefulWidget {
@@ -13,8 +18,9 @@ class levelSix extends StatefulWidget {
 }
 
 class _levelSixState extends State<levelSix> {
-  double rating = 2 ;
-  @override
+  double rating =0 ;
+  double rating2 = 0 ;
+  double rating3 = 0 ;  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: defaultAppBar(CLevel6, "Level 6",context),
@@ -28,7 +34,14 @@ class _levelSixState extends State<levelSix> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Navigator.push (context, MaterialPageRoute(builder: (context)=>cameraOne()));
+                        setState(() {
+                          rating=5;
+                        });
+                        Navigator.push (context, MaterialPageRoute(builder: (context)=>
+
+                        CameraScreen(
+
+                        )));
                       },
                       icon: CircleAvatar(
                         backgroundColor: CLevel6,
@@ -47,9 +60,10 @@ class _levelSixState extends State<levelSix> {
                   ]),
               SizedBox(width: MediaQuery.of(context).size.width * 0.05),
               RatingBar.builder(
+                initialRating: rating,
                   minRating: 1,
                   itemBuilder: (context, _)=>Icon(Icons.star,color: Colors.amber,),
-                  updateOnDrag: true,
+                  updateOnDrag: false,
                   itemSize: 30,
                   onRatingUpdate: (rating)=> setState(() {
                     this.rating = rating ;
@@ -64,7 +78,15 @@ class _levelSixState extends State<levelSix> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Navigator.push (context, MaterialPageRoute(builder: (context)=>cameraOne()));
+                        setState(() {
+                          rating2=3;
+                        });
+                        Navigator.push (context, MaterialPageRoute(builder: (context)=>
+                            CameraScreenL2(
+
+                        )
+
+                        ));
                       },
                       icon: CircleAvatar(
                         backgroundColor: CLevel6,
@@ -83,9 +105,10 @@ class _levelSixState extends State<levelSix> {
                   ]),
               SizedBox(width: MediaQuery.of(context).size.width * 0.05),
               RatingBar.builder(
+                initialRating: rating2,
                   minRating: 1,
                   itemBuilder: (context, _)=>Icon(Icons.star,color: Colors.amber,),
-                  updateOnDrag: true,
+                  updateOnDrag: false,
                   itemSize: 30,
                   onRatingUpdate: (rating)=> setState(() {
                     this.rating = rating ;
@@ -100,7 +123,12 @@ class _levelSixState extends State<levelSix> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        Navigator.push (context, MaterialPageRoute(builder: (context)=>cameraOne()));
+                        setState(() {
+                          rating3=4.5;
+                        });
+                        Navigator.push (context, MaterialPageRoute(builder: (context)=>CameraScreenL5(
+
+                        )));
                       },
                       icon: CircleAvatar(
                         backgroundColor: CLevel6,
@@ -118,9 +146,10 @@ class _levelSixState extends State<levelSix> {
                   ]),
               SizedBox(width: MediaQuery.of(context).size.width * 0.05),
               RatingBar.builder(
+                initialRating: rating3,
                   minRating: 1,
                   itemBuilder: (context, _)=>Icon(Icons.star,color: Colors.amber,),
-                  updateOnDrag: true,
+                  updateOnDrag: false,
                   itemSize: 30,
                   onRatingUpdate: (rating)=> setState(() {
                     this.rating = rating ;

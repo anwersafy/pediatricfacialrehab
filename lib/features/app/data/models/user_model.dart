@@ -1,18 +1,22 @@
-class UserModel {
+import 'package:hive/hive.dart';
+
+@HiveField(0)
+class UserModel extends HiveObject{
+  @HiveField(0)
   String? name;
-  String? email;
-  String? image;
+  @HiveField(1)
+  dynamic image;
+  @HiveField(2)
   String? password;
 
   UserModel({
     this.name,
-    this.email,
+
     this.image,
     this.password,
   });
-  UserModel.fromJson(Map<String, dynamic> json) {
+  UserModel.fromJson(Map<dynamic, dynamic> json) {
     name = json['name'];
-    email = json['email'];
     image = json['image'];
     password = json['password'];
   }

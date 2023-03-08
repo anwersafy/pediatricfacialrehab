@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_balloon_slider/flutter_balloon_slider.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:hive/hive.dart';
+import 'package:job/features/app/domain/repositories/cach_helper.dart';
 import 'package:job/features/app/domain/usecases/app_cubit/login_%20cubit.dart';
 import 'package:job/features/app/presentation/screens/reminder.dart';
 import 'package:job/features/app/presentation/screens/splashScreen.dart';
 import 'package:job/utils/colors.dart';
 import 'package:slider_controller/slider_controller.dart';
 import '../../domain/repositories/constant.dart';
+import '../cameraCubit/cubitTest/gallary.dart';
 import '../widgets/component.dart';
 import 'gallery.dart';
 import 'levelfive.dart';
@@ -17,7 +20,8 @@ import 'levelthree.dart';
 import 'leveltwo.dart';
 
 class levelsScreen extends StatefulWidget {
-  String? username;
+  final String? username;
+
 
   levelsScreen({Key? key, this.username}) : super(key: key);
 
@@ -29,6 +33,8 @@ class levelsScreen extends StatefulWidget {
 class _levelsScreenState extends State<levelsScreen> {
   double values = 40.0;
   String dropdownValue = 'English';
+  var username= CacheHelper.getData(key: 'username');
+  var password=CacheHelper.getData(key: 'password');
 
 
   @override
@@ -132,19 +138,17 @@ class _levelsScreenState extends State<levelsScreen> {
                           child: SliderController(
                             isDraggable: true,
                             sliderDecoration: SliderDecoration(
-                              activeColor: Color.fromRGBO(244, 83, 68, 1),
+                              activeColor: CLevel2,
                               inactiveColor: Colors.grey.withOpacity(0.5),
 
                               //height: MediaQuery.of(context).size.height * 0.75,
 
 
                             ),
-                            value: 100,
+                            value: 30,
 
                             onChanged: (dynamic value) {
-                              setState(() {
-                                values = value;
-                              });
+
 
                               print('slider value : $value');
                             },),
@@ -177,7 +181,7 @@ class _levelsScreenState extends State<levelsScreen> {
                       style: TextStyle(fontSize: 11),
                     ),
                     accountEmail: Text(
-                      AppCubit.get(context).playerName??AppCubit.get(context).usernameController.text,
+                      username??AppCubit.get(context).usernameController.text,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -188,7 +192,8 @@ class _levelsScreenState extends State<levelsScreen> {
                       child: CircleAvatar(
                         radius: 80,
                         backgroundImage:
-                            AssetImage('images/Profile Image-1.png'),
+                           //Image.memory(AppCubit.get(context).useModelList[0].image).image??
+                               Image.asset('images/1.png').image,
                       ),
                     ), //circleAvatar
                   ), //UserAccountDrawerHeader
@@ -249,11 +254,11 @@ class _levelsScreenState extends State<levelsScreen> {
                                 ),
                                 MaterialButton(
                                     onPressed: () {
-                                      if (passwordControllerG.text == AppCubit.get(context).playerPassword) {
+                                      if (passwordControllerG.text == password??AppCubit.get(context).playerPassword) {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => Gallery()));
+                                                builder: (context) => Gallary()));
                                       }
                                       else{
                                         Navigator.pop(context, 'OK');
@@ -289,7 +294,7 @@ class _levelsScreenState extends State<levelsScreen> {
                     onPressed: () {},
                     icon: Image.asset('images/Reminder.png'),
                   ),
-                  title: const Text(' Reminder '),
+                  title:  Text(' Reminder '),
                   onTap: () {
                     var passwordControllerR=TextEditingController();
 
@@ -337,7 +342,7 @@ class _levelsScreenState extends State<levelsScreen> {
                                 ),
                                 MaterialButton(
                                     onPressed: () {
-                                      if (passwordControllerR.text == AppCubit.get(context).playerPassword) {
+                                      if (passwordControllerR.text == password??AppCubit.get(context).playerPassword) {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
